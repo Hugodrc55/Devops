@@ -1,0 +1,13 @@
+1. Application déployée : {{ include "devops-app.fullname" . }}
+
+2. Accéder à l'application :
+{{- if .Values.ingress.enabled }}
+   http://{{ .Values.ingress.host }}
+{{- else }}
+   kubectl port-forward svc/{{ include "devops-app.fullname" . }} 3000:{{ .Values.service.port }} -n {{ .Release.Namespace }}
+   http://localhost:3000
+{{- end }}
+
+3. Environnement : {{ .Values.config.nodeEnv }}
+   Réplicas      : {{ .Values.replicaCount }}
+   Autoscaling   : {{ .Values.autoscaling.enabled }}

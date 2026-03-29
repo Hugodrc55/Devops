@@ -18,12 +18,12 @@ RUN addgroup -g 1001 appgroup && \
 
 WORKDIR /app
 
-# Copier seulement les deps de production
+
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev --ignore-scripts && \
     npm cache clean --force
 
-# Copier le code source
+
 COPY src/ ./src/
 
 # Métadonnées
